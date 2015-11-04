@@ -5,14 +5,14 @@ var express = require('express'),
     mysql = require('mysql'),
     myConnection = require('express-myconnection'),
     bodyParser = require('body-parser'),
-    issues = require('./issues');
+    issues = require('issues');
 
 var app = express();
 
 var dbOptions = {
       host: 'localhost',
       user: 'debugger',
-      password: 'passworddd',
+      password: 'password',
       port: 3306,
       database: 'debugging_tips'
 };
@@ -36,9 +36,9 @@ function errorHandler(err, req, res, next) {
 }
 
 //setup the handlers
-app.get('/', issues.all);
 app.get('/issues', issues.all);
-app.get('/issues/add' issues.showAdd);
+app.get('/issues', issues.all);
+app.get('/issues/add', issues.showAdd);
 app.get('/issues/:id', issues.get);
 app.post('/issues/update/:id', issues.update);
 app.post('/issuesss', issues.add);

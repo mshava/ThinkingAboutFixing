@@ -3,13 +3,16 @@ var logger = require('./log');
 exports.all = function (req, res) {
     req.getConnection(function(err, connection){
         connection.query("select * from issues", function(err, results){
-            res.render('issues', {issues : results})
+            res.render('/issues', {issues : results})
         });
     });
 }
 
 exports.get = function (req, res) {
     req.getConnection(function(err, connection){
+        if (err)
+            console.log(err);
+            return next(err);
         connection.query("select * from issues where id = ?", req.params.id, function(err, results){
             console.log(results);
             return res.render('issue_edit', {issue : results[0]})
@@ -33,8 +36,13 @@ exports.update = function (req, res) {
 }
 
 exports.showAdd = function (req, res) {
-    res.render('isue')
-}
+    //req.getConnection(function(err, connection){
+        //connection.query("select * from issues", function(err, results){
+    res.render('/issue')
+   
+        //}); 
+    //});    
+ }
 
 exports.add = function (req, res) {
 
